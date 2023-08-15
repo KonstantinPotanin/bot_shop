@@ -2,6 +2,11 @@ from aiogram import Bot, Dispatcher, executor, types
 from dotenv import load_dotenv
 import os
 
+
+async def on_start(_):
+    print('Заработало!!!')
+
+
 load_dotenv()
 bot = Bot(os.getenv('TOKEN'))
 dp = Dispatcher(bot=bot)
@@ -22,4 +27,4 @@ async def answer(message: types.Message):
     await message.reply('Я тебя не понимаю')
 
 if __name__ == '__main__':
-    executor.start_polling(dp)
+    executor.start_polling(dp, skip_updates=True, on_startup=on_start)
